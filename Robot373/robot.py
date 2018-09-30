@@ -1,8 +1,12 @@
 import time     # import the time library for the sleep function
-import brickpi3 # import the BrickPi3 drivers
 
-BP = brickpi3.BrickPi3() # Create an instance of the BrickPi3 class. BP will be the BrickPi3 object.
-
+try:
+    import brickpi3 # import the BrickPi3 drivers
+    BP = brickpi3.BrickPi3() # Create an instance of the BrickPi3 class. BP will be the BrickPi3 object.
+except ImportError:
+    print("no module brickpi3")
+    BP=None
+    
 def closest_color(r,g,b,**kwargs):
     """
     C=closest_color(100,0,0,
