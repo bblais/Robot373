@@ -1,5 +1,9 @@
 import time     # import the time library for the sleep function
 
+def Wait(seconds):
+    time.sleep(seconds)
+
+
 try:
     import brickpi3 # import the BrickPi3 drivers
     BP = brickpi3.BrickPi3() # Create an instance of the BrickPi3 class. BP will be the BrickPi3 object.
@@ -51,6 +55,7 @@ class Timer(object):
 class Sensor(object):
 
     def __init__(self,port,sensor_type):
+        BP.set_sensor_type(port,sensor_type)
         self.port=port
         self.type=sensor_type
         self.BP=BP
@@ -80,15 +85,15 @@ def Sensors(one=None,two=None,three=None,four=None):
         ports=[BP.PORT_1,BP.PORT_2,BP.PORT_3,BP.PORT_4]
 
         if v=='ir' or v.startswith('infra'):
-            sensors.append(Sensor(BP.set_sensor_type(ports[i], BP.SENSOR_TYPE.EV3_INFRARED_PROXIMITY)))
+            sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.EV3_INFRARED_PROXIMITY))
         elif v=='touch':
-            sensors.append(Sensor(BP.set_sensor_type(ports[i], BP.SENSOR_TYPE.TOUCH)))
+            sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.TOUCH))
         elif v=='us' or v.startswith('ultra'):
-            sensors.append(Sensor(BP.set_sensor_type(ports[i],  BP.SENSOR_TYPE.NXT_ULTRASONIC)))
+            sensors.append(Sensor(ports[i],  BP.SENSOR_TYPE.NXT_ULTRASONIC))
         elif v=='color':
-            sensors.append(Sensor(BP.set_sensor_type(ports[i], BP.SENSOR_TYPE.EV3_COLOR_COLOR_COMPONENTS)))
+            sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.EV3_COLOR_COLOR_COMPONENTS))
         elif 'gyro' in v:
-            sensors.append(Sensor(BP.set_sensor_type(ports[i], BP.SENSOR_TYPE.EV3_GYRO_ABS_DPS)))
+            sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.EV3_GYRO_ABS_DPS))
         else:
             raise ValueError('Not implemented:' % v)
 
