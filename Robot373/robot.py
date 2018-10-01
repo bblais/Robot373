@@ -112,8 +112,8 @@ class Motor(object):
 
     @power.setter
     def power(self,power):
-        self._power=_power
-        BP.set_motor_power(port, power)        
+        self._power=power
+        BP.set_motor_power(self.port, power)        
 
 
 def Motors(port_letters,size=None):
@@ -123,5 +123,13 @@ def Motors(port_letters,size=None):
     for letter in port_letters:
         i=ord(letter.upper())-65
         m.append(Motor(ports[i]))
+        
+    if len(m)==0:
+        return None
+    elif len(m)==1:
+        return m[0]
+    else:
+        return m
 
-    return m
+def Shutdown():
+    BP.reset_all()        # Unconfigure the sensors, disable the motors, and restore the LED to the control of the BrickPi3 firmware.
