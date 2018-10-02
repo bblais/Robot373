@@ -88,8 +88,10 @@ def Sensors(one=None,two=None,three=None,four=None):
             sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.EV3_INFRARED_PROXIMITY))
         elif v=='touch':
             sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.TOUCH))
-        elif v=='us' or v.startswith('ultra'):
+        elif v=='nxtus' or v.startswith('nxtultra'):
             sensors.append(Sensor(ports[i],  BP.SENSOR_TYPE.NXT_ULTRASONIC))
+        elif v=='us' or v.startswith('ultra'):
+            sensors.append(Sensor(ports[i],   BP.SENSOR_TYPE.EV3_ULTRASONIC_CM))
         elif v=='color':
             sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.EV3_COLOR_COLOR_COMPONENTS))
         elif 'gyro' in v:

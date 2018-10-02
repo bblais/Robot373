@@ -1,4 +1,4 @@
 from .robot import *
 
-__version__='0.0.2'
+__version__='0.0.3'
 print("Version: ",__version__)
