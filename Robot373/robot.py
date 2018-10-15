@@ -15,7 +15,7 @@ def closest_color(r,g,b,**kwargs):
     """
     C=closest_color(100,0,0,
             red=[100,0,0],
-            green=[0,100,0],
+            glreen=[0,100,0],
             black=[100,100,100],
             )
     """
@@ -70,6 +70,38 @@ class Sensor(object):
 
         return val
 
+def Sensors2(one=None,two=None,three=None,four=None):
+
+    sensors=[]
+    for i,v in enumerate([one,two,three,four]):
+        if not v:
+            continue
+
+        v=v.lower()
+
+        ports=[BP.PORT_1,BP.PORT_2,BP.PORT_3,BP.PORT_4]
+
+        if v=='ir' or v.startswith('infra'):
+            sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.EV3_INFRARED_PROXIMITY))
+        elif v=='touch':
+            sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.TOUCH))
+        elif v=='nxtus' or v.startswith('nxtultra'):
+            sensors.append(Sensor(ports[i],  BP.SENSOR_TYPE.NXT_ULTRASONIC))
+        elif v=='us' or v.startswith('ultra'):
+            sensors.append(Sensor(ports[i],   BP.SENSOR_TYPE.EV3_ULTRASONIC_CM))
+        elif v=='color':
+            sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.EV3_COLOR_COLOR_COMPONENTS))
+        elif 'gyro' in v:
+            sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.EV3_GYRO_ABS_DPS))
+        else:
+            raise ValueError('Not implemented:' % v)
+
+    if len(sensors)==0:
+        return None
+    elif len(sensors)==1:
+        return sensors[0]
+    else:
+        return sensors
     
 
 def Sensors(one=None,two=None,three=None,four=None):
