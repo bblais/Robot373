@@ -167,3 +167,11 @@ def Motors(port_letters,size=None):
 
 def Shutdown():
     BP.reset_all()        # Unconfigure the sensors, disable the motors, and restore the LED to the control of the BrickPi3 firmware.
+
+
+
+import os
+from PIL import Image
+
+def take_picture(filename='picture.jpg'):
+    os.system("fswebcam -r 352x288 --no-banner '%s'" % filename)
