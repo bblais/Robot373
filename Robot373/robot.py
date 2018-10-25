@@ -11,6 +11,26 @@ except ImportError:
     print("no module brickpi3")
     BP=None
     
+def closest_color_as_number(r,g,b,*args):
+
+    min_distance_sq=0
+    min_color=None
+    for c,color in enumerate(args):
+        r2,g2,b2=color
+        distance_sq=(r-r2)**2+(g-g2)**2+(b-b2)**2
+
+        if min_color is None:  # first color
+            min_color=c
+            min_distance_sq=distance_sq
+        elif distance_sq<min_distance_sq:
+            min_color=c
+            min_distance_sq=distance_sq
+        else:
+            pass
+
+    return min_color
+
+
 def closest_color(r,g,b,**kwargs):
     """
     C=closest_color(100,0,0,
@@ -46,7 +66,12 @@ class Timer(object):
     def _reset(self):
         self.t0=time.time()
 
+    @property
     def time(self):
+        return time.time()-self.t0
+
+    @property
+    def value(self):
         return time.time()-self.t0
 
     def seconds(self):
@@ -139,10 +164,22 @@ class Motor(object):
     def __init__(self,port):
         self.port=port
         self._power=0
+        self.reset_position()
+
+    def reset_position(self):
+        BP.offset_motor_encoder(self.port, BP.get_motor_encoder(port))
+
+    @property
+    def position(self):
+        return BP.get_motor_encoder(self.port)
+
+    @position.setter
+    def position(self,pos):
+        BP.set_motor_position(self.port, pos)
 
     @property
     def power(self):
-        return BP.get_motor_encoder(self.port)
+        return self._power
 
     @power.setter
     def power(self,power):
