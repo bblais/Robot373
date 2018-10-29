@@ -167,7 +167,7 @@ class Motor(object):
         self.reset_position()
 
     def reset_position(self):
-        BP.offset_motor_encoder(self.port, BP.get_motor_encoder(port))
+        BP.offset_motor_encoder(self.port, BP.get_motor_encoder(self.port))
 
     @property
     def position(self):
