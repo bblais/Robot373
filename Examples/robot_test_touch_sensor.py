@@ -2,7 +2,7 @@ from Robot373 import *
 
 Wait(3) # just to make sure we connect ok
 
-touch,S2,S3,S4=Sensors("touch",None,None,None)
+touch=Sensors("touch",None,None,None)
 
 pressed=False
 

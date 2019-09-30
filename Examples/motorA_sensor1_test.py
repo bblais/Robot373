@@ -1,6 +1,7 @@
 from Robot373 import *
 
 touch,S2,S3,S4=Sensors("touch",None,None,None)
+touch=Sensors("touch",None,None,None)
 
 Wait(3) # just to make sure we connect ok
 

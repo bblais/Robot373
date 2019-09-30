@@ -95,7 +95,7 @@ class Sensor(object):
 
         return val
 
-def Sensors2(one=None,two=None,three=None,four=None):
+def Sensors(one=None,two=None,three=None,four=None):
 
     sensors=[]
     for i,v in enumerate([one,two,three,four]):
@@ -128,8 +128,10 @@ def Sensors2(one=None,two=None,three=None,four=None):
     else:
         return sensors
     
+def Sensors2(*args,**kwargs):
+    raise ValueError("Use Sensors() instead of Sensors2()")
 
-def Sensors(one=None,two=None,three=None,four=None):
+def Sensors_old(one=None,two=None,three=None,four=None):
 
     sensors=[]
     for i,v in enumerate([one,two,three,four]):
