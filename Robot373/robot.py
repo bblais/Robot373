@@ -187,6 +187,16 @@ class Motor(object):
         BP.set_motor_power(self.port, power)        
 
 
+    def drive(self,power,distance):
+        start=self.position
+        self.power=power
+        end=self.position
+        while abs(end-start)<distance:
+            Wait(0.01)
+
+        self.power=0
+        
+
 def Motors(port_letters,size=None):
     m=[]
     unused=''

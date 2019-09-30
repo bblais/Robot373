@@ -1,6 +1,6 @@
 from Robot373 import *
 
-color_sensor=Sensors2(None,None,"color",None)
+color_sensor=Sensors(None,None,"color",None)
 left,right=Motors("ab")
 
 left.power=50
