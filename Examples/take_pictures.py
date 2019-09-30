@@ -7,7 +7,7 @@ if not os.path.exists('images'):
 
 count=0
 while True:
-    x=raw_input('Hit enter to take a picture with no view.  Type any character and hit enter to take a picture with a view.')
+    x=input('Hit enter to take a picture with no view.  Type any character and hit enter to take a picture with a view.')
 
     if x:
         view=True
