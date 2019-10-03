@@ -21,7 +21,7 @@ try:
         white=[256,256,256]
         black=[0,0,0]
 
-        col=closest_color(r,g,b,
+        col=closest_color_as_number(r,g,b,
                 maroon,gray,white,black
                 )
         values.append(col)
