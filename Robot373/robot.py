@@ -194,6 +194,7 @@ class Motor(object):
         self.power=power
         end=self.position
         while abs(end-start)<distance:
+            end=self.position
             Wait(0.01)
 
         self.power=0
