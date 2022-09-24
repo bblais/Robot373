@@ -225,7 +225,7 @@ from PIL import Image
 
 def take_picture(filename='picture.jpg',view=False):
 
-    a=os.system("fswebcam -s brightness=100%% -r 1600x900 --no-banner current_board.jpg '%s'" % filename)
+    a=os.system("fswebcam -s brightness=100%% -r 1600x900 --no-banner '%s'" % filename)
     print(a)
     if view:
         os.system('gpicview "%s" &' % filename)
