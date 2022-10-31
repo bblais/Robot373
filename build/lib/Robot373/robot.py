@@ -147,22 +147,6 @@ def Sensors(S1=None,S2=None,S3=None,S4=None):
         if not found:
             raise ValueError('Not implemented:' % v)
 
-    print("Waiting for Sensors to Warm Up")
-
-
-    while True:
-        still_warming_up=False
-        for sensor in sensors:
-            if sensor.value is None:
-                still_warming_up=True
-                continue
-        if not still_warming_up:
-            break
-
-        Wait(0.05)
-
-
-
     if len(sensors)==0:
         return None
     elif len(sensors)==1:
