@@ -147,28 +147,44 @@ def Sensors(S1=None,S2=None,S3=None,S4=None):
         if not found:
             raise ValueError('Not implemented:' % v)
 
-    print("Waiting for Sensors to Warm Up")
-
-
-    while True:
-        still_warming_up=False
-        for sensor in sensors:
-            if sensor.value is None:
-                still_warming_up=True
-                continue
-        if not still_warming_up:
-            break
-
-        Wait(0.05)
-
-
-
     if len(sensors)==0:
         return None
     elif len(sensors)==1:
         return sensors[0]
     else:
         return sensors
+
+
+
+def warm_up_sensors(*args):
+    import contextlib
+
+    print("Waiting for Sensors to Warm Up")
+
+    if isinstance(args[0],list):
+        sensors=args[0]
+    else:
+        sensors=args
+
+    T=Timer()
+    with contextlib.suppress(BP.SensorError):
+
+        while True:
+            still_warming_up=False
+            for sensor in sensors:
+                if sensor.value is None:
+                    still_warming_up=True
+                    continue
+            if not still_warming_up:
+                break
+
+            Wait(0.05)
+
+            if T.value>10:
+                print("Waited for 10 seconds...still not reading sensors.")
+                break
+    print("done.")
+
     
 def Sensors2(*args,**kwargs):
     raise ValueError("Use Sensors() instead of Sensors2()")
@@ -203,18 +219,38 @@ def Sensors_old(one=None,two=None,three=None,four=None):
     return sensors
 
 
+# set_motor_power will set the PWM duty cycle percentage. At 10v battery voltage and a PWM duty cycle (power level) of 25%, the motor would get an average of 2.5v (not factoring voltage drop at a few points). You can set the power level to anything from -100 to 100 (full reverse to full forward) with 1% precision. You can set the power level to -128 to float the motor (make it rotate freely as if the cable was disconnected). In this mode, the power applied to the motor is not regulated by speed or position, so it won’t compensate for varying load etc.
+
+# set_motor_dps will set a target speed for the motor to run (in Degrees Per Second). The robot’s firmware (BP3 or GPG3) will use the encoder feedback to determine the current position/speed of the motor, and adjust the PWM power in attempt to maintain the target speed.
+
+# The most recent command overrides previous commands. For example, if you set the target speed to 100dps with set_motor_dps and then 2 seconds later tell the motor to float to a stop by setting -128 with set_motor_power, the motor will run at 100dps and then float (do the most recent command).
+
+# With set_motor_limits, the power limit is the maximum PWM value that the firmware will apply while attempting to run at the specified speed target or position target. The dps limit is the maximum speed that the firmware will allow the motor to run while attempting to reach a position target.
+
 class Motor(object):
 
     def __init__(self,port):
         self.port=port
         self._power=0
         self._position=0
+        self._dps=None
         self.reset_position()
 
     def reset_position(self):
         if not BP is None:
             BP.offset_motor_encoder(self.port, BP.get_motor_encoder(self.port))
         self._position=self.position
+
+    @property
+    def degrees_per_second(self):
+        return self._dps
+
+
+    @property.setter
+    def degrees_per_second(self,dps):
+        if not BP is None:
+            BP.set_motor_limits(self.port, dps = dps)
+        self._dps=dps
 
 
     @property
