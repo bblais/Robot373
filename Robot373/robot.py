@@ -319,12 +319,10 @@ def Shutdown():
 import os
 from PIL import Image
 
-def take_picture(filename='picture.jpg',view=False):
+def take_picture(filename='picture.jpg',view=False,S=10):
 
-    a=os.system("fswebcam -s brightness=100%% -r 1600x900 --no-banner '%s'" % filename)
+    a=os.system("fswebcam -s brightness=100%% -r 1600x900 --no-banner -S %d '%s'" % (S,filename))
     print(a)
-    if view:
-        os.system('gpicview "%s" &' % filename)
 
 def old_take_picture(filename='picture.jpg'):
     os.system("fswebcam -r 352x288 --no-banner '%s'" % filename)
