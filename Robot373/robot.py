@@ -246,7 +246,7 @@ class Motor(object):
         return self._dps
 
 
-    @property.setter
+    @degrees_per_second.setter
     def degrees_per_second(self,dps):
         if not BP is None:
             BP.set_motor_limits(self.port, dps = dps)
