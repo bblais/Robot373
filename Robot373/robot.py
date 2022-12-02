@@ -219,9 +219,9 @@ def Sensors_old(one=None,two=None,three=None,four=None):
     return sensors
 
 
-# set_motor_power will set the PWM duty cycle percentage. At 10v battery voltage and a PWM duty cycle (power level) of 25%, the motor would get an average of 2.5v (not factoring voltage drop at a few points). You can set the power level to anything from -100 to 100 (full reverse to full forward) with 1% precision. You can set the power level to -128 to float the motor (make it rotate freely as if the cable was disconnected). In this mode, the power applied to the motor is not regulated by speed or position, so it won’t compensate for varying load etc.
+# set_motor_power will set the PWM duty cycle percentage. At 10v battery voltage and a PWM duty cycle (power level) of 25%, the motor would get an average of 2.5v (not factoring voltage drop at a few points). You can set the power level to anything from -100 to 100 (full reverse to full forward) with 1% precision. You can set the power level to -128 to float the motor (make it rotate freely as if the cable was disconnected). In this mode, the power applied to the motor is not regulated by speed or position, so it wont compensate for varying load etc.
 
-# set_motor_dps will set a target speed for the motor to run (in Degrees Per Second). The robot’s firmware (BP3 or GPG3) will use the encoder feedback to determine the current position/speed of the motor, and adjust the PWM power in attempt to maintain the target speed.
+# set_motor_dps will set a target speed for the motor to run (in Degrees Per Second). The robots firmware (BP3 or GPG3) will use the encoder feedback to determine the current position/speed of the motor, and adjust the PWM power in attempt to maintain the target speed.
 
 # The most recent command overrides previous commands. For example, if you set the target speed to 100dps with set_motor_dps and then 2 seconds later tell the motor to float to a stop by setting -128 with set_motor_power, the motor will run at 100dps and then float (do the most recent command).
 
