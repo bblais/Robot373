@@ -145,7 +145,7 @@ def Sensors(S1=None,S2=None,S3=None,S4=None):
                 break
 
         if not found:
-            raise ValueError('Not implemented:' % v)
+            raise ValueError('Not implemented: "%s"' % str(v))
 
     if len(sensors)==0:
         return None
@@ -214,7 +214,7 @@ def Sensors_old(one=None,two=None,three=None,four=None):
         elif 'gyro' in v:
             sensors.append(Sensor(ports[i], BP.SENSOR_TYPE.EV3_GYRO_ABS_DPS))
         else:
-            raise ValueError('Not implemented:' % v)
+            raise ValueError('Not implemented: "%s"' % str(v))
 
     return sensors
 
