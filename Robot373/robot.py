@@ -120,7 +120,7 @@ def Sensors(S1=None,S2=None,S3=None,S4=None):
                 'nxtus':BP.SENSOR_TYPE.NXT_ULTRASONIC,
                 'nxtultra':BP.SENSOR_TYPE.NXT_ULTRASONIC,
                 'us':BP.SENSOR_TYPE.EV3_ULTRASONIC_CM,
-                'touch':BP.SENSOR_TYPE.NXT_TOUCH,
+                'touch':BP.SENSOR_TYPE.TOUCH,
                 'ultra':BP.SENSOR_TYPE.EV3_ULTRASONIC_CM,
                 'color':BP.SENSOR_TYPE.EV3_COLOR_COLOR_COMPONENTS,
                 'gyro':BP.SENSOR_TYPE.EV3_GYRO_ABS_DPS,
