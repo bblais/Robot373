@@ -156,6 +156,18 @@ def Sensors(S1=None,S2=None,S3=None,S4=None):
     else:
         return sensors
 
+from io import StringIO 
+import sys
+
+class Capturing(list):
+    def __enter__(self):
+        self._stdout = sys.stdout
+        sys.stdout = self._stringio = StringIO()
+        return self
+    def __exit__(self, *args):
+        self.extend(self._stringio.getvalue().splitlines())
+        del self._stringio    # free up some memory
+        sys.stdout = self._stdout
 
 
 def warm_up_sensors(*args):
@@ -169,8 +181,7 @@ def warm_up_sensors(*args):
         sensors=args
 
     T=Timer()
-    with contextlib.suppress(brickpi3.SensorError):
-
+    with Capturing() as output:
         while True:
             still_warming_up=False
             for sensor in sensors:
@@ -183,8 +194,11 @@ def warm_up_sensors(*args):
             Wait(0.05)
 
             if T.value>10:
-                print("Waited for 10 seconds...still not reading sensors.")
                 break
+
+    if T.value>10:
+        print("Waited for 10 seconds...still not reading sensors.")
+
     print("done.")
 
     
