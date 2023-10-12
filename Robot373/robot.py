@@ -149,6 +149,9 @@ def Sensors(S1=None,S2=None,S3=None,S4=None):
         if not found:
             raise ValueError('Not implemented: "%s"' % str(v))
 
+    if sensors:
+        warm_up_sensors(sensors)
+
     if len(sensors)==0:
         return None
     elif len(sensors)==1:
@@ -173,7 +176,8 @@ class Capturing(list):
 def warm_up_sensors(*args):
     import contextlib
 
-    print("Waiting for Sensors to Warm Up")
+    print("Waiting for Sensors to Warm Up...",end="")
+    sys.stdout.flush()
 
     if isinstance(args[0],list):
         sensors=args[0]
@@ -197,7 +201,7 @@ def warm_up_sensors(*args):
                 break
 
     if T.value>10:
-        print("Waited for 10 seconds...still not reading sensors.")
+        print("Waited for 10 seconds...still not reading sensors...")
 
     print("done.")
 
