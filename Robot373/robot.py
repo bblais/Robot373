@@ -169,7 +169,7 @@ def warm_up_sensors(*args):
         sensors=args
 
     T=Timer()
-    with contextlib.suppress(BP.SensorError):
+    with contextlib.suppress(brickpi3.SensorError):
 
         while True:
             still_warming_up=False
