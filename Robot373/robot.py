@@ -296,6 +296,8 @@ class Motor(object):
         self.T=Timer()
         self.T._reset()
         self.last_position=0 # for fake data
+        self.called_once=False
+
         self.reset_position()
 
     def reset_position(self):
@@ -324,6 +326,10 @@ class Motor(object):
         if not BP is None:
             self._position=BP.get_motor_encoder(self.port)
         else:
+            if not self.called_once:
+                print(f"Warning -- Motor {self.port} in offline mode.  Returning fake data.")
+                self.called_once=True
+
             self._position=int(self.power/3*self.T.value+self.last_position)
 
 
