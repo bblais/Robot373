@@ -102,6 +102,7 @@ class Sensor(object):
         else:  # do a random value for the sensor
             if not self.called_once:
                 print(f"Warning -- Sensor {self.type} in offline mode.  Returning fake data.")
+                self.called_once=True
 
             if self.type in ['ir','nxtus','us','gyro']:
                 tau=10  # seconds
