@@ -294,10 +294,15 @@ class Motor(object):
         self._position=0
         self._dps=None
         self.reset_position()
+        self.T=Timer()
+        self.T._reset()
+        self.last_position=self.position # for fake data
 
     def reset_position(self):
         if not BP is None:
             BP.offset_motor_encoder(self.port, BP.get_motor_encoder(self.port))
+        else:
+            self._position=0
         self._position=self.position
 
     @property
@@ -316,12 +321,18 @@ class Motor(object):
     def position(self):
         if not BP is None:
             self._position=BP.get_motor_encoder(self.port)
+        else:
+            self._position=self.power/10*self.T.value+self.last_position
+
+
         return self._position
 
     @position.setter
     def position(self,pos):
         if not BP is None:
             BP.set_motor_position(self.port, pos)
+        else:
+            self.last_position=pos
 
         self._position=pos            
 
@@ -333,14 +344,18 @@ class Motor(object):
     def power(self,power):
         self._power=power
         if not BP is None:
-            BP.set_motor_power(self.port, power)        
+            BP.set_motor_power(self.port, power)
+        else:
+            self.last_position=self.position
 
 
-    def drive(self,power,distance):
+    def drive(self,power,distance,verbose=False):
         start=self.position
         self.power=power
         end=self.position
         while abs(end-start)<distance:
+            if verbose:
+                print("position: ",self.position, "end",end)
             end=self.position
             Wait(0.01)
 
