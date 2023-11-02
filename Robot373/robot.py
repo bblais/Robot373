@@ -324,7 +324,7 @@ class Motor(object):
         if not BP is None:
             self._position=BP.get_motor_encoder(self.port)
         else:
-            self._position=self.power/10*self.T.value+self.last_position
+            self._position=int(self.power/3*self.T.value+self.last_position)
 
 
         return self._position

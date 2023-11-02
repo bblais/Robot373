@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[1]:
 
 
 from Robot373 import *
@@ -23,7 +23,7 @@ while T.value<10:
 Shutdown()
 
 
-# In[ ]:
+# In[2]:
 
 
 from Robot373 import *
@@ -36,7 +36,7 @@ Ma.power=50
 T=Timer()
 
 while T.value<10:
-    print(Ma.value)
+    print(Ma.position)
     Wait(.2)
 
 
