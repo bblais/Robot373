@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[4]:
 
 
 from Robot373 import *
 
-touch=Sensors("touch",None,None,None)
+touch,color,eyes=Sensors("touch","color","us",None)
 Wait(3) # just to make sure we connect ok
 Ma=Motors("a")
 Ma.power=50
 
 T=Timer()
 
-while T.value<5:
-    print(touch.value)
-    Wait(.1)
+while T.value<10:
+    print(color.value)
+    Wait(.2)
 
 
 

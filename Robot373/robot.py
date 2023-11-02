@@ -92,6 +92,9 @@ class Sensor(object):
 
     @property
     def value(self):
+        def sine_value(T,tau,value_min,value_max):
+            return (value_max-value_min)*(sin(T.value/tau*2*3.14159)+1)/2+value_min
+
         from math import sin  # used for fake data
         if not BP is None:
             try:
@@ -109,19 +112,19 @@ class Sensor(object):
                 value_min=0
                 value_max=50
 
-                return int((value_max-value_min)*sin(self.T.value/tau*2*3.14159)+value_min)
+                return int(sine_value(self.T,10,0,50))
             elif self.type in ['touch']:
                 tau=10  # seconds
                 value_min=0
                 value_max=50
-                return ((value_max-value_min)*sin(self.T.value/tau*2*3.14159)+value_min)>(value_max+value_min)/2
+                return sine_value(self.T,10,0,50)>25
             elif self.type in ['color']:
                 tau=10  # seconds
                 value_min=0
                 value_max=255
-                return [int((value_max-value_min)*sin(self.T.value/tau*2*3.14159)+value_min),
-                        int((value_max-value_min)*sin(self.T.value/(1.5*tau)*2*3.14159)+value_min),
-                        int((value_max-value_min)*sin(self.T.value/(0.76*tau)*2*3.14159)+value_min),
+                return [int(sine_value(self.T,10,0,255)),
+                        int(sine_value(self.T,15,0,255)),
+                        int(sine_value(self.T,7.6,0,255)),                        
                         100]
             else:
                 return None
