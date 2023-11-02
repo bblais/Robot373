@@ -306,6 +306,7 @@ class Motor(object):
         else:
             self._position=0
             self.last_position=0
+            self.T._reset()
 
         self._position=self.position
 
@@ -341,6 +342,7 @@ class Motor(object):
             BP.set_motor_position(self.port, pos)
         else:
             self.last_position=pos
+            self.T._reset()
 
         self._position=pos            
 
@@ -355,6 +357,7 @@ class Motor(object):
             BP.set_motor_power(self.port, power)
         else:
             self.last_position=self.position
+            self.T._reset()
 
 
     def drive(self,power,distance,verbose=False):
