@@ -1,3 +1,4 @@
+from cmath import tau
 import time     # import the time library for the sleep function
 
 def Wait(seconds):
@@ -8,7 +9,7 @@ try:
     import brickpi3 # import the BrickPi3 drivers
     BP = brickpi3.BrickPi3() # Create an instance of the BrickPi3 class. BP will be the BrickPi3 object.
 except ImportError:
-    print("no module brickpi3")
+    print("no module brickpi3...running in offline mode")
     BP=None
     
 def closest_color_as_number(r,g,b,*args):
@@ -85,16 +86,45 @@ class Sensor(object):
         self.port=port
         self.type=sensor_type
         self.BP=BP
+        self.called_once=False
+        self.T=Timer()
+        self.T._reset()
 
     @property
     def value(self):
+        from math import sin  # used for fake data
         if not BP is None:
             try:
                 val = BP.get_sensor(self.port)
             except brickpi3.SensorError as error:
                 print(error)
                 val=None
-        else:
+        else:  # do a random value for the sensor
+            if not self.called_once:
+                print(f"Warning -- Sensor {self.type} in offline mode.  Returning fake data.")
+
+            if self.type in ['ir','nxtus','us','gyro']:
+                tau=10  # seconds
+                value_min=0
+                value_max=50
+
+                return int((value_max-value_min)*sin(self.T.value/tau*2*3.14159)+value_min)
+            elif self.type in ['touch']:
+                tau=10  # seconds
+                value_min=0
+                value_max=50
+                return ((value_max-value_min)*sin(self.T.value/tau*2*3.14159)+value_min)>(value_max+value_min)/2
+            elif self.type in ['color']:
+                tau=10  # seconds
+                value_min=0
+                value_max=255
+                return [int((value_max-value_min)*sin(self.T.value/tau*2*3.14159)+value_min),
+                        int((value_max-value_min)*sin(self.T.value/(1.5*tau)*2*3.14159)+value_min),
+                        int((value_max-value_min)*sin(self.T.value/(0.76*tau)*2*3.14159)+value_min),
+                        100]
+            else:
+                return None
+
             val=None
 
         return val
@@ -183,6 +213,11 @@ def warm_up_sensors(*args):
         sensors=args[0]
     else:
         sensors=args
+
+    if BP is None:
+        print("Offline mode for sensors...done.")
+        return
+
 
     T=Timer()
     with Capturing() as output:
