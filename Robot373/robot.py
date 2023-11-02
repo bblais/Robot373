@@ -293,16 +293,18 @@ class Motor(object):
         self._power=0
         self._position=0
         self._dps=None
-        self.reset_position()
         self.T=Timer()
         self.T._reset()
         self.last_position=self.position # for fake data
+        self.reset_position()
 
     def reset_position(self):
         if not BP is None:
             BP.offset_motor_encoder(self.port, BP.get_motor_encoder(self.port))
         else:
             self._position=0
+            self.last_position=0
+                        
         self._position=self.position
 
     @property
