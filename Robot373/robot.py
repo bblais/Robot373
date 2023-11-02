@@ -295,7 +295,7 @@ class Motor(object):
         self._dps=None
         self.T=Timer()
         self.T._reset()
-        self.last_position=self.position # for fake data
+        self.last_position=0 # for fake data
         self.reset_position()
 
     def reset_position(self):
@@ -304,7 +304,7 @@ class Motor(object):
         else:
             self._position=0
             self.last_position=0
-                        
+
         self._position=self.position
 
     @property
