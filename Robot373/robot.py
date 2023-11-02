@@ -352,12 +352,12 @@ class Motor(object):
 
     @power.setter
     def power(self,power):
-        self._power=power
         if not BP is None:
             BP.set_motor_power(self.port, power)
         else:
-            self.last_position=self.position
+            self.last_position=int(self.power/3*self.T.value+self.last_position)
             self.T._reset()
+        self._power=power
 
 
     def drive(self,power,distance,verbose=False):

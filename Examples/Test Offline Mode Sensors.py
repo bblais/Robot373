@@ -31,7 +31,29 @@ from Robot373 import *
 touch,color,eyes=Sensors("touch","color","us",None)
 Wait(3) # just to make sure we connect ok
 Ma=Motors("a")
-print("reverse")
+Ma.power=50
+
+T=Timer()
+
+while T.value<5:
+    print(color.value)
+    Wait(.2)
+
+
+
+
+Shutdown()
+
+
+# In[3]:
+
+
+from Robot373 import *
+
+touch,color,eyes=Sensors("touch","color","us",None)
+Wait(3) # just to make sure we connect ok
+Ma=Motors("a")
+print("forward")
 Ma.power=50
 
 T=Timer()
@@ -41,6 +63,7 @@ while T.value<5:
 
 print("reverse")
 Ma.power=-100
+
 T=Timer()
 while T.value<5:
     print(Ma.position)
