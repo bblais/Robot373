@@ -404,9 +404,9 @@ def Shutdown():
 import os
 from PIL import Image
 
-def take_picture(filename='picture.jpg',view=False,S=10):
+def take_picture(filename='picture.jpg',brightness=100,view=False,S=10):
 
-    a=os.system("fswebcam -s brightness=100%% -r 1600x900 --no-banner -S %d '%s'" % (S,filename))
+    a=os.system(f"fswebcam -s brightness={brightness}%% -r 1600x900 --no-banner -S {S} '{filename}'")
     print(a)
 
 def old_take_picture(filename='picture.jpg'):
