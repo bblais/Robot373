@@ -286,6 +286,10 @@ def Sensors_old(one=None,two=None,three=None,four=None):
 
 # With set_motor_limits, the power limit is the maximum PWM value that the firmware will apply while attempting to run at the specified speed target or position target. The dps limit is the maximum speed that the firmware will allow the motor to run while attempting to reach a position target.
 
+
+
+
+
 class Motor(object):
 
     def __init__(self,port):
@@ -318,7 +322,7 @@ class Motor(object):
     @degrees_per_second.setter
     def degrees_per_second(self,dps):
         if not BP is None:
-            BP.set_motor_limits(self.port, dps = dps)
+            BP.set_motor_dps(self.port, dps = dps)
         self._dps=dps
 
 
@@ -405,8 +409,9 @@ import os
 from PIL import Image
 
 def take_picture(filename='picture.jpg',brightness=100,view=False,S=10):
-
-    a=os.system(f"fswebcam -s brightness={brightness}%% -r 1600x900 --no-banner -S {S} '{filename}'")
+    cmd=f"fswebcam -s brightness={brightness}%% -r 1600x900 --no-banner -S {S} '{filename}'"
+    print(cmd)
+    a=os.system(cmd)
     print(a)
 
 def old_take_picture(filename='picture.jpg'):
