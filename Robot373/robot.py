@@ -405,14 +405,13 @@ def Shutdown():
 
 
 
-import os
-from PIL import Image
+#import os
+#from PIL import Image
 
 def take_picture(filename='picture.jpg',brightness=100,view=False,S=10):
+    import os
     cmd=f"fswebcam -s brightness={brightness}%% -r 1600x900 --no-banner -S {S} '{filename}'"
     print(cmd)
     a=os.system(cmd)
     print(a)
 
-def old_take_picture(filename='picture.jpg'):
-    os.system("fswebcam -r 352x288 --no-banner '%s'" % filename)
