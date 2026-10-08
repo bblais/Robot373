@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Robot373"
+version = "0.0.35"
+description = "Robot373 - A wrapper around robot functions for the AI and Robotics SCI373 course"
+authors = [
+    {name = "Brian Blais"}
+]
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "brickpi3",
+]
+
+[project.urls]
+Homepage = "https://github.com/bblais/Robot373"
+Repository = "https://github.com/bblais/Robot373"
