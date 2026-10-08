@@ -12,6 +12,9 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+dependencies = [
+    "pyzmq",
+]
 
 [project.optional-dependencies]
 pi = ["brickpi3"]
