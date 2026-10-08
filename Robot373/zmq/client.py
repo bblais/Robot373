@@ -66,7 +66,7 @@ class ZMQClient:
     
         print(f"Connecting to robot server at {self.server_address}...", end="", flush=True)
         self.socket.connect(self.server_address)
-    
+        print("done")
     
     def send_command(self, command_dict):
         """Send a command and receive response with auto-reconnect"""
