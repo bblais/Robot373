@@ -13,34 +13,23 @@ Server side usage:
     run_zmq_server(verbose=True, port=5555)
 """
 
-# Import all client functions and classes
-from .client import (
-    # Core functions
-    setup_client,
-    get_client,
-    set_verbose,
-    Wait,
-    Shutdown,
-    take_picture,
+# Lazy imports - only import when actually used
+def __getattr__(name):
+    """Lazy import to avoid importing client when running server"""
+    if name in ['setup_client', 'get_client', 'set_verbose', 'Wait', 'Shutdown', 
+                'take_picture', 'ZMQClient', 'Sensor', 'Motor', 'Timer', 
+                'Sensors', 'Motors', 'warm_up_sensors', 'closest_color', 
+                'closest_color_as_number']:
+        from .client import (
+            setup_client, get_client, set_verbose, Wait, Shutdown, take_picture,
+            ZMQClient, Sensor, Motor, Timer, Sensors, Motors, warm_up_sensors,
+            closest_color, closest_color_as_number
+        )
+        return locals()[name]
+    elif name == 'run_zmq_server':
+        return run_zmq_server
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
-    # Classes
-    ZMQClient,
-    Sensor,
-    Motor,
-    Timer,
-
-    # Factory functions
-    Sensors,
-    Motors,
-    warm_up_sensors,
-
-    # Utility functions
-    closest_color,
-    closest_color_as_number,
-)
-
-# Import server module for direct access if needed
-from . import server
 
 # Server convenience function
 def run_zmq_server(verbose=True, port=5555):
@@ -56,6 +45,7 @@ def run_zmq_server(verbose=True, port=5555):
         run_zmq_server(verbose=True, port=5555)
     """
     import sys
+    from . import server
 
     # Set up arguments for the server
     sys.argv = ['server', '--verbose', str(verbose), '--port', str(port)]
