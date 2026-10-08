@@ -1,6 +1,6 @@
 [project]
 name = "Robot373"
-version = "0.0.38"
+version = "0.0.39"
 description = "Robot373 - A wrapper around robot functions for the AI and Robotics SCI373 course"
 authors = [
     {name = "Brian Blais"}
