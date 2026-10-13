@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Robot373"
-version = "0.0.44"
+version = "0.0.45"
 description = "Robot373 - A wrapper around robot functions for the AI and Robotics SCI373 course"
 authors = [
     {name = "Brian Blais"}
