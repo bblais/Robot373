@@ -240,11 +240,12 @@ def handle_command(command):
             
             filename = command.get("filename", "picture.jpg")
             brightness = command.get("brightness", 100)
+            device = command.get("device", '/dev/video0')
             S = command.get("S", 10)
             
             if not OFFLINE_MODE:
                 # Take real picture
-                cmd = f"fswebcam -s brightness={brightness}%% -r 1600x900 --no-banner -S {S} '{filename}'"
+                cmd = f"fswebcam -d {device} -s brightness={brightness}%% -r 1600x900 --no-banner -S {S} '{filename}'"
                 result = os.system(cmd)
                 
                 if result == 0 and os.path.exists(filename):
