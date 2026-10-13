@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Robot373"
-version = "0.0.42"
+version = "0.0.43"
 description = "Robot373 - A wrapper around robot functions for the AI and Robotics SCI373 course"
 authors = [
     {name = "Brian Blais"}
@@ -31,3 +31,9 @@ Repository = "https://github.com/bblais/Robot373"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["Robot373*"]
+
+Specify standalone script files to copy to the system bin directory
+[tool.setuptools.script-files]
+script-files = [
+    "Scripts/run_zmq_server.py"
+]
