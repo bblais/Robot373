@@ -416,7 +416,7 @@ def Shutdown():
     client.send_command(command)
     print("Shutdown.")
 
-def take_picture(filename='picture.jpg', brightness=100, S=10):
+def take_picture(filename='picture.jpg', brightness=100, S=10, device='/dev/video0'):
     """
     Take a picture using the webcam on the robot.
     The image is captured on the server and transferred to the client.
@@ -433,7 +433,8 @@ def take_picture(filename='picture.jpg', brightness=100, S=10):
         "method": "take_picture",
         "filename": filename,
         "brightness": brightness,
-        "S": S
+        "S": S,
+        "device": device,
     }
     
     image_b64 = client.send_command(command)
